@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="color-scheme" content="light dark" />
+        <meta name="description" content="Calculate your potential earnings with Revolut's savings plans. Compare different plans and find the best option for your savings.">
+        <meta name="keywords" content="Revolut, savings calculator, savings plans, APY, interest rates, earnings calculator">
+        <meta name="robots" content="index, follow">
+        <meta name="application-name" content="Revolut Savings Calculator" />
+        <meta name="apple-mobile-web-app-title" content="Revolut Savings Calculator" />
+        <meta property="og:title" content="Revolut Savings Calculator">
+        <meta property="og:description" content="Calculate your potential earnings with Revolut's savings plans. Compare different plans and find the best option for your savings.">
+        <meta property="og:url" content="https://revolutsavingscalculator.xyz">
+        <meta property="og:type" content="website">
+        <link rel="canonical" href="https://revolutsavingscalculator.xyz" />
+        <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAABO5JREFUWMPtV0lsG2UUDiVSCyrigOglCkhQ9VAk1AsSUi8FAeKAOADihBDqAbWkIuqhCS2VOqSpG3vshDRVCHGcrfGSydbESWkIrZulWb2Px44b25OJEy+JnQSxBEjix5tJHWzL2xzgxEhPtmb+//++ed/bpqDg8cWy7CEutPElF4oOcaHIvcVgpJ4LR98GgCcK/ouLC63rERzS2Cy7unHiXwVnPP6j+MaQgQBwwcgWF4x+nOscLa0o1thkH6qtijdEEbC6/UVW92LM4w+Db2UV3FwgHZFtLrT2XupearL6KQQ+rbWTk2gxNOBNRyvOiiJhdPquGp3eXTRweP0b6T0RXXf7I0X8egMQhVq7okRrI1fioCn2l46WvSOKxKTbXWRiPEfZwJojkxyLoaiymyZf1dGkJQPwvuns5AbFyI+LIsFHvfXR4u9sIFNMRP6g6NqtXOAJ5qHMkudFkTA5vbdMLh8vBTC+5ZhvZS2WSEJv7AcRBABlGr+zcONg3gQWFhYOIonzKEedi11uSPXC4IMZaB9TiiKBkrUBFIivKdZ5ttaLmZFIoGt4DBq79HBrql6cJ2j5JdEEpun50yaXFxjvMqZnEPj/yq4haKQGQdndD2pjrQgC5K6WkX+UN3jzqLYYgZy3703CqNEBP06aobXvrgAet6a+XtBYqvOXwk7+prPIX8sJrrNJX9fa5cvNwx1JgOlMNUhhoMnzJqGxkwG+aqYFNoChsJNWXMSFfwqL8WCVnspJgicqKh7scrNqQvpMci23kKfSFRjexbyrc5FoMzSLItFpl18WCo/GRr6po+V3dXZ5LNNi9VytEHTZSWBmPGzIMxYQC3tIAQbFuXQLWqdlgC5CCUhom5UJ9/i049MvK4muAeiYrctWlNw6G3mBYmpf2HO7nSxPt1DSfg3OXSaglCDgTNkVaBqTCvfbRptySqHs7QO1uSb1TBq9/AEBxIEk3VsMxCFkNJFK4LuRKij5moCbd67jYbKkZy0j7WmBBwxTgG1dqBdOzgfT7DgMOFXYN+TnDQaiMGPK9drII6iJLxHkqqoSKpoq9/RHAnVIRKq5Bg0/VfFuBNWQLglc/2A600Czi6Nd4+oqHM6a991M9SsIthknoOiRQMklAr6qrhB+eSnKZBVwthzlGMfYsCqgqb97n8AM7c48Ue21cWso9MuRrCRwnHoXwbcfBwvUDlwHeZcElKPSfc9cqPoGavoke54xfQvKntsCgeGHJr5zAj9V8RJ4lsPpRjtzIABPZ6+AGbJiPy7QGy2T/xDqmLkpRH5r3zCMmRngJyoztlB845303li/kbsMOxR1yRlRKbj/TDkBX1wkhPRMfN4+8X1ciphaP/LpIy5QmkWO7aXw5stZCfARiwf/EAcQpKAk0DIlFYIzlYBQN+637Ch7Bj/n95vnfRWuxUDGeFgKRytyeoHyVj2LDcaRZ1n9Wcso3o/vNTMLx1GKXy1uFmiPH1xccDspIIOR+3m1Y7W95iU8PJwDfFpnVRxL3Tvj8h6bc3rKTC72MzYY2UzyQChqzHsm6HTITiLIVpqWuoGVrZQC6sls+81O34u0ZwkSP3wwQDWipiINTX4S/+jgR22cbCRtM5Ln8pyyD6AcjGWeBSemqZNd2ZnnwidFj2YUIzuBwKcohjgsdu8s7SlGEvU46GrnnN63Cv6/Eq6/AYGJt7BlSX2NAAAAAElFTkSuQmCC">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.fluid.classless.sand.min.css" />
+        <title>Revolut Savings Calculator</title>
+        <style>
+            /* Override input width for numbers to not break it on low resolution screens */
+            @media (max-width: 768px) {
+                table input[type="number"] {
+                    width: 5rem;
+                }
+            }
+
+            /* Allow table to be horizontally scrollable */
+            .tbl-overflow {
+                overflow: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h2>Revolut Savings Calculator</h2>
+        </header>
+        <main>
+            <section>
+                <b>Current savings in euros (€)</b>
+                <fieldset role="group">
+                    <input type="number" name="number" placeholder="0.00" min="0" step="0.01" aria-label="Saved amount in Euros" id="saved-amount" aria-invalid="true" aria-describedby="saved-amount-invalid-helper" />
+                    <input type="submit" value="Calculate" onclick="calculateEarnings()" />
+                </fieldset>
+                <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
+            </section>
+            <div class="tbl-overflow">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col" role="rowheader"></th>
+                            <th scope="col" role="columnheader" id="plan-name-standard">Standard</th>
+                            <th scope="col" role="columnheader" id="plan-name-plus">Plus</th>
+                            <th scope="col" role="columnheader" id="plan-name-premium">Premium</th>
+                            <th scope="col" role="columnheader" id="plan-name-metal">Metal</th>
+                            <th scope="col" role="columnheader" id="plan-name-ultra">Ultra</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">APY (%)</th>
+                            <th><input type="number" id="apy-standard" value="2.95" step="0.01" min="0"></th>
+                            <th><input type="number" id="apy-plus" value="3.10" step="0.01" min="0"></th>
+                            <th><input type="number" id="apy-premium" value="3.55" step="0.01" min="0"></th>
+                            <th><input type="number" id="apy-metal" value="3.70" step="0.01" min="0"></th>
+                            <th><input type="number" id="apy-ultra" value="3.80" step="0.01" min="0"></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Plan Price (€/mo)</th>
+                            <th><input type="number" id="price-monthly-standard" value="0.00" step="0.01" min="0"></th>
+                            <th><input type="number" id="price-monthly-plus" value="3.99" step="0.01" min="0"></th>
+                            <th><input type="number" id="price-monthly-premium" value="8.99" step="0.01" min="0"></th>
+                            <th><input type="number" id="price-monthly-metal" value="15.99" step="0.01" min="0"></th>
+                            <th><input type="number" id="price-monthly-ultra" value="55.00" step="0.01" min="0"></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Earnings (€/day)</th>
+                            <th id="daily-earnings-standard"></th>
+                            <th id="daily-earnings-plus"></th>
+                            <th id="daily-earnings-premium"></th>
+                            <th id="daily-earnings-metal"></th>
+                            <th id="daily-earnings-ultra"></th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Earnings (€/mo)</th>
+                            <th id="monthly-earnings-standard"></th>
+                            <th id="monthly-earnings-plus"></th>
+                            <th id="monthly-earnings-premium"></th>
+                            <th id="monthly-earnings-metal"></th>
+                            <th id="monthly-earnings-ultra"></th>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th scope="row">Net (€/mo)</th>
+                            <th id="net-monthly-standard"></th>
+                            <th id="net-monthly-plus"></th>
+                            <th id="net-monthly-premium"></th>
+                            <th id="net-monthly-metal"></th>
+                            <th id="net-monthly-ultra"></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <p>Highest potential earnings from: <mark id="highest-potential-earnings-plan"></mark></p>
+        </main>
+        <footer>
+            <small>
+                <b>Disclaimer:</b> The calculations provided by this tool are for illustrative purposes only and may be inaccurate.
+                They do not constitute financial advice and are purely hypothetical.
+                Use at your own risk.
+            </small>
+            <br/><br/>
+            <small>
+                For any issues, suggestions or feedback, the source code is available <a href="https://github.com/macabu/revolut-savings-calculator">here</a> (or you can just view the page source).
+            </small>
+        </footer>
+
+        <script>
+            function calculateEarnings() {
+                const savedAmountInput = document.getElementById('saved-amount');
+                const savedAmountInvalidHelper = document.getElementById('saved-amount-invalid-helper');
+               
+                const savedAmount = parseFloat(savedAmountInput.value);
+                if (isNaN(savedAmount) || savedAmount < 0) {
+                    savedAmountInput.setAttribute('aria-invalid', 'true');
+                    savedAmountInvalidHelper.style.display = 'block';
+
+                    return;
+                }
+
+                savedAmountInput.setAttribute('aria-invalid', 'false');
+                savedAmountInvalidHelper.style.display = 'none';
+
+                const plans = ['standard', 'plus', 'premium', 'metal', 'ultra'];
+                const highestNetMonthlyEarning = {plan: plans[0], value: 0.00};
+
+                for (const plan of plans) {
+                    const apy = parseFloat(document.getElementById(`apy-${plan}`).value) / 100;
+
+                    // Return on money compounds monthly and is reinvested after that.
+                    // With starting of 1000€ at 2.95% APY, after the first month you'll have 1000 * (1 + 2.95%/365 * 30) = 1002.42€.
+                    // The minimum threshold for interest payable is 0.01€. If you earn less than this on a given day, no interest will be payable.
+                    let dailyEarnings = (savedAmount * apy) / 365;
+                    if (dailyEarnings < 0.01) {
+                        dailyEarnings = 0.00;
+                    }
+
+                    const monthlyEarnings = (dailyEarnings * 30);
+                    const priceMonthly = parseFloat(document.getElementById(`price-monthly-${plan}`).value);
+                    const netMonthly = monthlyEarnings - priceMonthly;
+
+                    if (netMonthly > highestNetMonthlyEarning.value) {
+                        highestNetMonthlyEarning.plan = plan;
+                        highestNetMonthlyEarning.value = netMonthly;
+                    }
+
+                    document.getElementById(`daily-earnings-${plan}`).textContent = dailyEarnings.toFixed(2);
+                    document.getElementById(`monthly-earnings-${plan}`).textContent = monthlyEarnings.toFixed(2);
+                    document.getElementById(`net-monthly-${plan}`).textContent = netMonthly.toFixed(2);
+                }
+
+                document.getElementById('highest-potential-earnings-plan').textContent =
+                    document.getElementById(`plan-name-${highestNetMonthlyEarning.plan}`).textContent;
+            }
+        </script>
+    </body>
+</html>
