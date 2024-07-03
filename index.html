@@ -123,26 +123,30 @@
 
         <script>
             const baseApy = {
-                EUR: {
-                    standard: 2.92,
-                    plus:     3.07,
-                    premium:  3.52,
-                    metal:    3.67,
-                    ultra:    3.77,
+                standard: {
+                    EUR: 2.92,
+                    GBP: 4.03,
+                    USD: 3.99,
                 },
-                USD: {
-                    standard: 3.99,
-                    plus:     4.24,
-                    premium:  4.74,
-                    metal:    4.99,
-                    ultra:    5.34,
+                plus: {
+                    EUR: 3.07,
+                    GBP: 4.28,
+                    USD: 4.24,
                 },
-                GBP: {
-                    standard: 4.03,
-                    plus:     4.28,
-                    premium:  4.78,
-                    metal:    5.03,
-                    ultra:    5.18,
+                premium: {
+                    EUR: 3.52,
+                    GBP: 4.78,
+                    USD: 4.74,
+                },
+                metal: {
+                    EUR: 3.67,
+                    GBP: 5.03,
+                    USD: 4.99,
+                },
+                ultra: {
+                    EUR: 3.77,
+                    GBP: 5.18,
+                    USD: 5.34,
                 },
             }
 
@@ -159,7 +163,7 @@
                 for (const apyInput of apyInputs) {
                     const plan = apyInput.id.split('-')[1];
 
-                    apyInput.value = baseApy[selectedCurrency][plan];
+                    apyInput.value = baseApy[plan][selectedCurrency];
                 }
 
                 document.getElementById('plan-price-label').textContent = `Plan Price (${currencyToSymbol[selectedCurrency]}/mo)`;
