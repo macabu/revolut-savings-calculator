@@ -39,13 +39,12 @@
             <section>
                 <b>Current savings. Change the currency for different preloaded base APY rates.</b>
                 <fieldset role="group">
-                    <input type="number" name="number" placeholder="0.00" min="0" step="0.01" aria-label="Saved amount in Euros" id="saved-amount" aria-invalid="true" aria-describedby="saved-amount-invalid-helper" />
+                    <input type="number" name="number" placeholder="0.00" min="0" step="0.01" aria-label="Saved amount in Euros" id="saved-amount" aria-invalid="true" aria-describedby="saved-amount-invalid-helper" oninput="calculateEarnings()" />
                     <select id="currency-selector" name="currency-selector" aria-label="Select the currency for a different APY" onchange="updateBaseApy()">
                         <option selected value="EUR">EUR</option>
                         <option value="USD">USD</option>
                         <option value="GBP">GBP</option>
                     </select>
-                    <input type="submit" value="Calculate" onclick="calculateEarnings()" />
                 </fieldset>
                 <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
             </section>
@@ -124,28 +123,28 @@
         <script>
             const baseApy = {
                 standard: {
-                    EUR: 2.92,
-                    GBP: 4.03,
+                    EUR: 2.93,
+                    GBP: 4.01,
                     USD: 3.99,
                 },
                 plus: {
-                    EUR: 3.07,
-                    GBP: 4.28,
+                    EUR: 3.08,
+                    GBP: 4.26,
                     USD: 4.24,
                 },
                 premium: {
-                    EUR: 3.52,
-                    GBP: 4.78,
+                    EUR: 3.53,
+                    GBP: 4.76,
                     USD: 4.74,
                 },
                 metal: {
-                    EUR: 3.67,
-                    GBP: 5.03,
+                    EUR: 3.68,
+                    GBP: 5.01,
                     USD: 4.99,
                 },
                 ultra: {
-                    EUR: 3.77,
-                    GBP: 5.18,
+                    EUR: 3.78,
+                    GBP: 5.16,
                     USD: 5.34,
                 },
             }
