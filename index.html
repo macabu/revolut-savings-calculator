@@ -155,6 +155,8 @@
                 GBP: '£',
             }
 
+            const plans = Object.keys(baseApy);
+
             function updateBaseApy() {
                 const selectedCurrency = document.getElementById('currency-selector').value;
                 const apyInputs = document.querySelectorAll('input[id^="apy-"]');
@@ -188,7 +190,6 @@
                 savedAmountInput.setAttribute('aria-invalid', 'false');
                 savedAmountInvalidHelper.style.display = 'none';
 
-                const plans = ['standard', 'plus', 'premium', 'metal', 'ultra'];
                 const highestNetMonthlyEarning = {plan: plans[0], value: 0.00};
 
                 for (const plan of plans) {
