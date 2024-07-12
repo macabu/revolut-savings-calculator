@@ -37,7 +37,7 @@
         </header>
         <main>
             <section>
-                <b>Current savings. Change the currency for different preloaded base APY rates.</b>
+                <b>Enter your savings. You can change the APY and plan prices below.</b>
                 <fieldset role="group">
                     <input type="number" name="number" placeholder="0.00" min="0" step="0.01" aria-label="Saved amount in Euros" id="saved-amount" aria-invalid="true" aria-describedby="saved-amount-invalid-helper" oninput="calculateEarnings()" />
                     <select id="currency-selector" name="currency-selector" aria-label="Select the currency for a different APY" onchange="updateBaseApy()">
@@ -63,19 +63,19 @@
                     <tbody>
                         <tr>
                             <th scope="row">APY (%)</th>
-                            <th><input type="number" pattern="d\*" id="apy-standard" value="" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="apy-plus" value="" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="apy-premium" value="" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="apy-metal" value="" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="apy-ultra" value="" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="apy-standard" value="" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="apy-plus" value="" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="apy-premium" value="" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="apy-metal" value="" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="apy-ultra" value="" step="0.01" min="0"></th>
                         </tr>
                         <tr>
                             <th id="plan-price-label" scope="row">Plan Price (€/mo)</th>
-                            <th><input type="number" pattern="d\*" id="price-monthly-standard" value="0.00" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="price-monthly-plus" value="3.99" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="price-monthly-premium" value="8.99" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="price-monthly-metal" value="15.99" step="0.01" min="0"></th>
-                            <th><input type="number" pattern="d\*" id="price-monthly-ultra" value="55.00" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="price-monthly-standard" value="0.00" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="price-monthly-plus" value="3.99" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="price-monthly-premium" value="8.99" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="price-monthly-metal" value="15.99" step="0.01" min="0"></th>
+                            <th><input type="number" pattern="d\*" oninput="calculateEarnings()" id="price-monthly-ultra" value="55.00" step="0.01" min="0"></th>
                         </tr>
                         <tr>
                             <th id="daily-earnings-label" scope="row">Earnings (€/day)</th>
