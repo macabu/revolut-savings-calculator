@@ -47,6 +47,12 @@
                     </select>
                 </fieldset>
                 <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
+                <fieldset>
+                    <label>
+                        <input type="checkbox" id="yearly-sub-toggle" onchange="updatePlanPrices()"></input>
+                        Pay plan subscription yearly? (2 months discount)
+                    </label>
+                </fieldset>
             </section>
             <div class="tbl-overflow">
                 <table>
@@ -149,6 +155,24 @@
                 },
             }
 
+            const planPricesMonthly = {
+                standard: {
+                    EUR: 0.00,
+                },
+                plus: {
+                    EUR: 3.99,
+                },
+                premium: {
+                    EUR: 8.99,
+                },
+                metal: {
+                    EUR: 15.99,
+                },
+                ultra: {
+                    EUR: 55.00,
+                },
+            }
+
             const currencyToSymbol = {
                 EUR: '€',
                 USD: '$',
@@ -156,6 +180,23 @@
             }
 
             const plans = Object.keys(baseApy);
+
+            function updatePlanPrices() {
+                const yearlyToggle = document.getElementById('yearly-sub-toggle').checked;
+
+                for (const plan of plans) {
+                    // TODO: Revolut does not have all the same plans in the US :ˆ) 
+                    const monthlyPrice = planPricesMonthly[plan]['EUR'];
+
+                    const planPrice = yearlyToggle
+                        ? monthlyPrice * (12-2)/12 // 2-month off, and we show the price per month instead of per year.
+                        : monthlyPrice;
+
+                    document.getElementById(`price-monthly-${plan}`).value = planPrice.toFixed(2);
+                }
+
+                calculateEarnings();
+            }
 
             function updateBaseApy() {
                 const selectedCurrency = document.getElementById('currency-selector').value;
@@ -222,6 +263,7 @@
             }
 
             window.onload = function() {
+                updatePlanPrices();
                 updateBaseApy();
             }
         </script>
