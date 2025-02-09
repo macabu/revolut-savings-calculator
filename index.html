@@ -441,6 +441,9 @@
                 },
             };
 
+            // Countries where the price for Ultra is not the "promotional" or introductory price.
+            const ultraNonIntroductory = ['es', 'at', 'hu', 'is', 'it', 'ro', 'se'];
+
             const currencyToSymbol = {
                 EUR: '€',
                 USD: '$',
@@ -464,6 +467,12 @@
                         : monthlyPrice;
 
                     document.getElementById(`price-monthly-${plan}`).value = planPrice.toFixed(2);
+                }
+
+                if (!ultraNonIntroductory.includes(countrySelector)) {
+                    document.getElementById('plan-name-ultra').innerText = `Ultra (Introductory offer)`;
+                } else {
+                    document.getElementById('plan-name-ultra').innerText = `Ultra`;
                 }
 
                 calculateEarnings();
