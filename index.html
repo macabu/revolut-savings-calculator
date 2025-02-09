@@ -53,7 +53,29 @@
                     <select id="country-selector" name="country-selector" aria-label="Select your country" onchange="loadData()">
                         <option selected disabled value="">Select your country</option>
                         <option value="es">Spain</option>
+                        <option value="at">Austria</option>
+                        <option value="be">Belgium</option>
                         <option value="bg">Bulgaria</option>
+                        <option value="cz">Czechia</option>
+                        <option value="cy">Cyprus</option>
+                        <option value="dk">Denmark</option>
+                        <option value="ee">Estonia</option>
+                        <option value="fi">Finland</option>
+                        <option value="fr">France</option>
+                        <option value="de">Germany</option>
+                        <option value="gr">Greece</option>
+                        <option value="hu">Hungary</option>
+                        <option value="is">Iceland</option>
+                        <option value="it">Italy</option>
+                        <option value="lv">Latvia</option>
+                        <option value="lt">Lithuania</option>
+                        <option value="mt">Malta</option>
+                        <option value="nl">Netherlands</option>
+                        <option value="pl">Poland</option>
+                        <option value="pt">Portugal</option>
+                        <option value="ro">Romania</option>
+                        <option value="sk">Slovakia</option>
+                        <option value="se">Sweden</option>
                     </select>
                 </fieldset>
                 <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
@@ -137,6 +159,37 @@
         </footer>
 
         <script>
+            // Seems like most countries in the EU follow this rate.
+            // But they are outdated slightly. I suspect they are all the same across the EU.
+            // From 2025-01-17.
+            const genericEURates = {
+                standard: {
+                    EUR: 2.17, 
+                    GBP: 3.60,
+                    USD: 3.11,
+                },
+                plus: {
+                    EUR: 2.32,
+                    GBP: 3.60,
+                    USD: 3.34,
+                },
+                premium: {
+                    EUR: 2.76,
+                    GBP: 4.33,
+                    USD: 3.34,
+                },
+                metal: {
+                    EUR: 2.91,
+                    GBP: 4.58,
+                    USD: 4.07,
+                },
+                ultra: {
+                    EUR: 3.01,
+                    GBP: 4.73,
+                    USD: 4.41,
+                },
+            };
+
             const baseApy = {
                 es: {
                     standard: {
@@ -165,34 +218,43 @@
                         USD: 4.42,
                     },
                 },
-                bg: {
-                    standard: {
-                        EUR: 2.17, 
-                        GBP: 3.60,
-                        USD: 3.11,
-                    },
-                    plus: {
-                        EUR: 2.32,
-                        GBP: 3.60,
-                        USD: 3.34,
-                    },
-                    premium: {
-                        EUR: 2.76,
-                        GBP: 4.33,
-                        USD: 3.34,
-                    },
-                    metal: {
-                        EUR: 2.91,
-                        GBP: 4.58,
-                        USD: 4.07,
-                    },
-                    ultra: {
-                        EUR: 3.01,
-                        GBP: 4.73,
-                        USD: 4.41,
-                    },
-                },
-            }
+                at: genericEURates, // Not confirmed, but probably..
+                be: genericEURates, // Not confirmed, but probably..
+                bg: genericEURates,
+                cy: genericEURates,
+                cz: genericEURates,
+                dk: genericEURates,
+                ee: genericEURates,
+                fi: genericEURates,
+                fr: genericEURates,
+                de: genericEURates, // Not confirmed, but probably..
+                gr: genericEURates, // Not confirmed, but probably..
+                hu: genericEURates,
+                is: genericEURates, // Not confirmed, but probably..
+                it: genericEURates, // Not confirmed, but probably..
+                lv: genericEURates,
+                lt: genericEURates,
+                lu: genericEURates,
+                mt: genericEURates, // Not confirmed, but probably..
+                nl: genericEURates,
+                pl: genericEURates, // Not confirmed, but probably..
+                pt: genericEURates, // Not confirmed, but probably..
+                ro: genericEURates,
+                sk: genericEURates,
+                si: genericEURates,
+                se: genericEURates,
+            };
+
+            // Approximations. Good enough.
+            const FXEUR = {
+                BGN: 0.51, // Fixed at 0.51 for a long time.
+                CZK: 0.04, // More or less stable at 0.04.
+                DKK: 0.13, // More or less stable at 0.13.
+                HUF: 0.0025, // Between this and 0.0024.
+                PLN: 0.24, // Between this and 0.23.
+                RON: 0.20, // More or less stable at 0.20.
+                SEK: 0.088, // Between this and 0.087. 
+            };
 
             const planPricesMonthly = {
                 es: { // EUR
@@ -200,22 +262,190 @@
                     plus: 3.99,
                     premium: 8.99,
                     metal: 15.99,
-                    ultra: 55.00,
+                    ultra: 55.00, // non-introductory
                 },
-                bg: { // BGN -> EUR is fixed at 0.51. Price is displayed in EUR.
+                at: {
                     standard: 0.00,
-                    plus: 4.0749,
-                    premium: 8.1549,
-                    metal: 15.2949,
-                    ultra: 45.90,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 60.00, // non-introductory
                 },
-            }
+                be: {
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 50.00,
+                },
+                bg: { // BGN -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 7.99 * FXEUR.BGN,
+                    premium: 15.99 * FXEUR.BGN,
+                    metal: 29.99 * FXEUR.BGN,
+                    ultra: 90 * FXEUR.BGN,
+                },
+                cy: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 16.99,
+                    ultra: 45.00,
+                },
+                cz: { // CZK -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 114.99 * FXEUR.CZK,
+                    premium: 219.99 * FXEUR.CZK,
+                    metal: 349.99 * FXEUR.CZK,
+                    ultra: 1100 * FXEUR.CZK,
+                },
+                dk: { // DKK -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 32.99 * FXEUR.DKK,
+                    premium: 74.99 * FXEUR.DKK,
+                    metal: 129.99 * FXEUR.DKK,
+                    ultra: 375 * FXEUR.DKK,
+                },
+                ee: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                fi: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 50.00,
+                },
+                fr: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 16.99,
+                    ultra: 45.00,
+                },
+                de: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 7.99,
+                    metal: 13.99,
+                    ultra: 50.00,
+                },
+                gr: { // EUR
+                    standard: 0.00,
+                    plus: 3.49,
+                    premium: 9.99,
+                    metal: 16.99,
+                    ultra: 45.00,
+                },
+                hu: { // HUF -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 1600 * FXEUR.HUF,
+                    premium: 3000 * FXEUR.HUF,
+                    metal: 4800 * FXEUR.HUF,
+                    ultra: 19500 * FXEUR.HUF, // non-introductory
+                },
+                is: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 50.00, // non-introductory
+                },
+                it: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 45.00, // non-introductory
+                },
+                lv: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 16.99,
+                    ultra: 50.00,
+                },
+                lt: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                lu: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 16.99,
+                    ultra: 50.00,
+                },
+                mt: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                nl: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 18.99,
+                    ultra: 50.00,
+                },
+                pl: { // PLN -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 19.99 * FXEUR.PLN,
+                    premium: 33.99 * FXEUR.PLN,
+                    metal: 55.99 * FXEUR.PLN,
+                    ultra: 210.00 * FXEUR.PLN,
+                },
+                pt: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                ro: { // RON -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 19.99 * FXEUR.RON,
+                    premium: 35.99 * FXEUR.RON,
+                    metal: 64.99 * FXEUR.RON,
+                    ultra: 220.00 * FXEUR.RON, // non-introductory
+                },
+                sk: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 9.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                si: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 45.00,
+                },
+                se: { // SEK -> EUR. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 44.99 * FXEUR.SEK,
+                    premium: 94.99 * FXEUR.SEK,
+                    metal: 169.99 * FXEUR.SEK,
+                    ultra: 500.00 * FXEUR.SEK, // non-introductory
+                },
+            };
 
             const currencyToSymbol = {
                 EUR: '€',
                 USD: '$',
                 GBP: '£',
-            }
+            };
 
             // Static list of plan names/keys; can use Spain as a key.
             const plans = Object.keys(baseApy['es']);
