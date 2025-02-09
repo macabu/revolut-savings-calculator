@@ -52,30 +52,31 @@
                     </select>
                     <select id="country-selector" name="country-selector" aria-label="Select your country" onchange="loadData()">
                         <option selected disabled value="">Select your country</option>
-                        <option value="es">Spain</option>
-                        <option value="at">Austria</option>
-                        <option value="be">Belgium</option>
-                        <option value="bg">Bulgaria</option>
-                        <option value="cz">Czechia</option>
-                        <option value="cy">Cyprus</option>
-                        <option value="dk">Denmark</option>
-                        <option value="ee">Estonia</option>
-                        <option value="fi">Finland</option>
-                        <option value="fr">France</option>
-                        <option value="de">Germany</option>
-                        <option value="gr">Greece</option>
-                        <option value="hu">Hungary</option>
-                        <option value="is">Iceland</option>
-                        <option value="it">Italy</option>
-                        <option value="lv">Latvia</option>
-                        <option value="lt">Lithuania</option>
-                        <option value="mt">Malta</option>
-                        <option value="nl">Netherlands</option>
-                        <option value="pl">Poland</option>
-                        <option value="pt">Portugal</option>
-                        <option value="ro">Romania</option>
-                        <option value="sk">Slovakia</option>
-                        <option value="se">Sweden</option>
+                        <option value="es">🇪🇸 Spain</option>
+                        <option value="at">🇦🇹 Austria</option>
+                        <option value="be">🇧🇪 Belgium</option>
+                        <option value="bg">🇧🇬 Bulgaria</option>
+                        <option value="cz">🇨🇿 Czechia</option>
+                        <option value="cy">🇨🇾 Cyprus</option>
+                        <option value="dk">🇩🇰 Denmark</option>
+                        <option value="ee">🇪🇪 Estonia</option>
+                        <option value="fi">🇫🇮 Finland</option>
+                        <option value="fr">🇫🇷 France</option>
+                        <option value="de">🇩🇪 Germany</option>
+                        <option value="gr">🇬🇷 Greece</option>
+                        <option value="hu">🇭🇺 Hungary</option>
+                        <option value="is">🇮🇸 Iceland</option>
+                        <option value="it">🇮🇹 Italy</option>
+                        <option value="lv">🇱🇻 Latvia</option>
+                        <option value="lt">🇱🇹 Lithuania</option>
+                        <option value="mt">🇲🇹 Malta</option>
+                        <option value="nl">🇳🇱 Netherlands</option>
+                        <option value="pl">🇵🇱 Poland</option>
+                        <option value="pt">🇵🇹 Portugal</option>
+                        <option value="ro">🇷🇴 Romania</option>
+                        <option value="sk">🇸🇰 Slovakia</option>
+                        <option value="si">🇸🇮 Slovenia</option>
+                        <option value="se">🇸🇪 Sweden</option>
                     </select>
                 </fieldset>
                 <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
@@ -544,6 +545,10 @@
             }
 
             function loadData() {
+                if (Object.keys(planPricesMonthly).length !== Object.keys(baseApy).length) {
+                    throw new Error('Length of prices and apy rates are different, some country is missing!');
+                }
+
                 updatePlanPrices();
                 updateBaseApy();
             }
