@@ -42,13 +42,18 @@
         </header>
         <main>
             <section>
-                <b>Enter your savings. You can change the APY and plan prices below.</b>
+                <b>Enter your savings and country. You can change the APY and plan prices below.</b>
                 <fieldset role="group">
                     <input type="number" name="number" placeholder="0.00" min="0" step="0.01" aria-label="Saved amount in Euros" id="saved-amount" aria-invalid="true" aria-describedby="saved-amount-invalid-helper" oninput="calculateEarnings()" />
                     <select id="currency-selector" name="currency-selector" aria-label="Select the currency for a different APY" onchange="updateBaseApy()">
                         <option selected value="EUR">EUR</option>
                         <option value="USD">USD</option>
                         <option value="GBP">GBP</option>
+                    </select>
+                    <select id="country-selector" name="country-selector" aria-label="Select your country" onchange="loadData()">
+                        <option selected disabled value="">Select your country</option>
+                        <option value="es">Spain</option>
+                        <option value="bg">Bulgaria</option>
                     </select>
                 </fieldset>
                 <small id="saved-amount-invalid-helper" style="display: block;">Please provide a valid positive amount.</small>
@@ -133,48 +138,76 @@
 
         <script>
             const baseApy = {
-                standard: {
-                    EUR: 2.13, 
-                    GBP: 3.54,
-                    USD: 3.07,
+                es: {
+                    standard: {
+                        EUR: 2.13, 
+                        GBP: 3.54,
+                        USD: 3.07,
+                    },
+                    plus: {
+                        EUR: 2.28,
+                        GBP: 3.72,
+                        USD: 3.22,
+                    },
+                    premium: {
+                        EUR: 2.73,
+                        GBP: 4.29,
+                        USD: 3.82,
+                    },
+                    metal: {
+                        EUR: 2.88,
+                        GBP: 4.52,
+                        USD: 4.07,
+                    },
+                    ultra: {
+                        EUR: 2.98,
+                        GBP: 4.69,
+                        USD: 4.42,
+                    },
                 },
-                plus: {
-                    EUR: 2.28,
-                    GBP: 3.72,
-                    USD: 3.22,
-                },
-                premium: {
-                    EUR: 2.73,
-                    GBP: 4.29,
-                    USD: 3.82,
-                },
-                metal: {
-                    EUR: 2.88,
-                    GBP: 4.52,
-                    USD: 4.07,
-                },
-                ultra: {
-                    EUR: 2.98,
-                    GBP: 4.69,
-                    USD: 4.42,
+                bg: {
+                    standard: {
+                        EUR: 2.17, 
+                        GBP: 3.60,
+                        USD: 3.11,
+                    },
+                    plus: {
+                        EUR: 2.32,
+                        GBP: 3.60,
+                        USD: 3.34,
+                    },
+                    premium: {
+                        EUR: 2.76,
+                        GBP: 4.33,
+                        USD: 3.34,
+                    },
+                    metal: {
+                        EUR: 2.91,
+                        GBP: 4.58,
+                        USD: 4.07,
+                    },
+                    ultra: {
+                        EUR: 3.01,
+                        GBP: 4.73,
+                        USD: 4.41,
+                    },
                 },
             }
 
             const planPricesMonthly = {
-                standard: {
-                    EUR: 0.00,
+                es: { // EUR
+                    standard: 0.00,
+                    plus: 3.99,
+                    premium: 8.99,
+                    metal: 15.99,
+                    ultra: 55.00,
                 },
-                plus: {
-                    EUR: 3.99,
-                },
-                premium: {
-                    EUR: 8.99,
-                },
-                metal: {
-                    EUR: 15.99,
-                },
-                ultra: {
-                    EUR: 55.00,
+                bg: { // BGN -> EUR is fixed at 0.51. Price is displayed in EUR.
+                    standard: 0.00,
+                    plus: 4.0749,
+                    premium: 8.1549,
+                    metal: 15.2949,
+                    ultra: 45.90,
                 },
             }
 
@@ -184,14 +217,17 @@
                 GBP: '£',
             }
 
-            const plans = Object.keys(baseApy);
+            // Static list of plan names/keys; can use Spain as a key.
+            const plans = Object.keys(baseApy['es']);
 
+            // TODO: when changing the currency, the base plan price currency should change too.
+            // Otherwise the calculation does not make much sense. I don't want to use a FX API though...
             function updatePlanPrices() {
+                const countrySelector = document.getElementById('country-selector').value || 'es'; // Default: Spain.
                 const yearlyToggle = document.getElementById('yearly-sub-toggle').checked;
 
                 for (const plan of plans) {
-                    // TODO: Revolut does not have all the same plans in the US :ˆ) 
-                    const monthlyPrice = planPricesMonthly[plan]['EUR'];
+                    const monthlyPrice = planPricesMonthly[countrySelector][plan];
 
                     const planPrice = yearlyToggle
                         ? monthlyPrice * (12-2)/12 // 2-month off, and we show the price per month instead of per year.
@@ -204,13 +240,14 @@
             }
 
             function updateBaseApy() {
+                const countrySelector = document.getElementById('country-selector').value || 'es'; // Default: Spain.
                 const selectedCurrency = document.getElementById('currency-selector').value;
                 const apyInputs = document.querySelectorAll('input[id^="apy-"]');
 
                 for (const apyInput of apyInputs) {
                     const plan = apyInput.id.split('-')[1];
 
-                    apyInput.value = baseApy[plan][selectedCurrency];
+                    apyInput.value = baseApy[countrySelector][plan][selectedCurrency];
                 }
 
                 document.getElementById('plan-price-label').textContent = `Plan Price (${currencyToSymbol[selectedCurrency]}/mo)`;
@@ -267,10 +304,12 @@
                     document.getElementById(`plan-name-${highestNetMonthlyEarning.plan}`).textContent;
             }
 
-            window.onload = function() {
+            function loadData() {
                 updatePlanPrices();
                 updateBaseApy();
             }
+
+            window.onload = loadData();
         </script>
     </body>
 </html>
