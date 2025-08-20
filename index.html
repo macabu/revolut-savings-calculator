@@ -160,90 +160,32 @@
         </footer>
 
         <script>
-            // Seems like most countries in the EU follow this rate.
-            // But they are outdated slightly. I suspect they are all the same across the EU.
-            // Extracted on 2025-04-30, but with data claiming to be from late January.
-            const genericEURates = {
+            const baseApy = {
                 standard: {
-                    EUR: 1.74, 
-                    GBP: 3.36,
-                    USD: 3.01,
+                    EUR: 1.15, 
+                    GBP: 2.92,
+                    USD: 2.99,
                 },
                 plus: {
-                    EUR: 1.89,
-                    GBP: 3.36,
-                    USD: 3.26,
+                    EUR: 1.30,
+                    GBP: 3.17,
+                    USD: 3.24,
                 },
                 premium: {
-                    EUR: 2.34,
-                    GBP: 4.11,
-                    USD: 3.76,
+                    EUR: 1.75,
+                    GBP: 3.67,
+                    USD: 3.74,
                 },
                 metal: {
-                    EUR: 2.49,
-                    GBP: 4.36,
-                    USD: 4.01,
+                    EUR: 1.90,
+                    GBP: 3.92,
+                    USD: 3.99,
                 },
                 ultra: {
-                    EUR: 2.59,
-                    GBP: 4.51,
-                    USD: 4.36,
+                    EUR: 2.00,
+                    GBP: 4.07,
+                    USD: 4.34,
                 },
-            };
-
-            const baseApy = {
-                es: {
-                    standard: {
-                        EUR: 1.20, 
-                        GBP: 3.11,
-                        USD: 3.00,
-                    },
-                    plus: {
-                        EUR: 1.35,
-                        GBP: 3.36,
-                        USD: 3.25,
-                    },
-                    premium: {
-                        EUR: 1.80,
-                        GBP: 3.86,
-                        USD: 3.75,
-                    },
-                    metal: {
-                        EUR: 1.95,
-                        GBP: 4.11,
-                        USD: 4.00,
-                    },
-                    ultra: {
-                        EUR: 2.05,
-                        GBP: 4.26,
-                        USD: 4.35,
-                    },
-                },
-                at: genericEURates, // Not confirmed, but probably..
-                be: genericEURates, // Not confirmed, but probably..
-                bg: genericEURates,
-                cy: genericEURates,
-                cz: genericEURates,
-                dk: genericEURates,
-                ee: genericEURates,
-                fi: genericEURates,
-                fr: genericEURates,
-                de: genericEURates, // Not confirmed, but probably..
-                gr: genericEURates, // Not confirmed, but probably..
-                hu: genericEURates,
-                is: genericEURates, // Not confirmed, but probably..
-                it: genericEURates, // Not confirmed, but probably..
-                lv: genericEURates,
-                lt: genericEURates,
-                lu: genericEURates,
-                mt: genericEURates, // Not confirmed, but probably..
-                nl: genericEURates,
-                pl: genericEURates, // Not confirmed, but probably..
-                pt: genericEURates, // Not confirmed, but probably..
-                ro: genericEURates,
-                sk: genericEURates,
-                si: genericEURates,
-                se: genericEURates,
             };
 
             // Approximations. Good enough.
@@ -452,7 +394,7 @@
             };
 
             // Static list of plan names/keys; can use Spain as a key.
-            const plans = Object.keys(baseApy['es']);
+            const plans = Object.keys(baseApy);
 
             // TODO: when changing the currency, the base plan price currency should change too.
             // Otherwise the calculation does not make much sense. I don't want to use a FX API though...
@@ -487,7 +429,7 @@
                 for (const apyInput of apyInputs) {
                     const plan = apyInput.id.split('-')[1];
 
-                    apyInput.value = baseApy[countrySelector][plan][selectedCurrency];
+                    apyInput.value = baseApy[plan][selectedCurrency];
                 }
 
                 document.getElementById('plan-price-label').textContent = `Plan Price (${currencyToSymbol[selectedCurrency]}/mo)`;
@@ -545,10 +487,6 @@
             }
 
             function loadData() {
-                if (Object.keys(planPricesMonthly).length !== Object.keys(baseApy).length) {
-                    throw new Error('Length of prices and apy rates are different, some country is missing!');
-                }
-
                 updatePlanPrices();
                 updateBaseApy();
             }
